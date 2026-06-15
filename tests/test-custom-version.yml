@@ -1,0 +1,29 @@
+name: Test custom version install
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - id: action
+        uses: .
+        with:
+          version: "1.2.0"
+      - name: Assert oras binary is available
+        run: |
+          echo "Checking oras binary..."
+          if ! command -v oras &>/dev/null; then
+            echo "FAIL: oras binary not found in PATH"
+            exit 1
+          fi
+          echo "PASS: oras found at $(command -v oras)"
+      - name: Assert oras version matches requested
+        run: |
+          VERSION=$(oras version | head -1 | awk '{print $NF}')
+          echo "actual version: $VERSION"
+          if [ "$VERSION" != "1.2.0" ]; then
+            echo "FAIL: expected version 1.2.0, got $VERSION"
+            exit 1
+          fi
+          echo "PASS"

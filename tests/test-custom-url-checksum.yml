@@ -1,0 +1,30 @@
+name: Test custom URL and checksum install
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - id: action
+        uses: .
+        with:
+          url: "https://github.com/oras-project/oras/releases/download/v1.2.0-beta.1/oras_1.2.0-beta.1_linux_amd64.tar.gz"
+          checksum: "37d86f848f7c7c471035cf8218f06372fd72a9fbdca1e10f509738e222b3b2be"
+      - name: Assert oras binary is available
+        run: |
+          echo "Checking oras binary..."
+          if ! command -v oras &>/dev/null; then
+            echo "FAIL: oras binary not found in PATH"
+            exit 1
+          fi
+          echo "PASS: oras found at $(command -v oras)"
+      - name: Assert oras version matches expected pre-release
+        run: |
+          VERSION=$(oras version | head -1 | awk '{print $NF}')
+          echo "actual version: $VERSION"
+          if [ "$VERSION" != "1.2.0-beta.1" ]; then
+            echo "FAIL: expected version 1.2.0-beta.1, got $VERSION"
+            exit 1
+          fi
+          echo "PASS"
