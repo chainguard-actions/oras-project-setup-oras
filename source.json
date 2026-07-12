@@ -1,6 +1,11 @@
 {
   "owner": "oras-project",
   "repo": "setup-oras",
-  "version": "",
-  "url": "https://github.com/oras-project/setup-oras"
+  "version": "v2.0.1",
+  "commit_sha": "1d808f7d7f6995cc68b7bf507bfe5c5446e1dc9d",
+  "url": "https://github.com/oras-project/setup-oras",
+  "policy_sha": "d636be7e43ef829af6e853da6b3c7566db9f72fe",
+  "test_policy_sha": "843adf9e4b8f85d0c08b27b9d0b09dd094b54702",
+  "test_agent_version": "1",
+  "harden_agent_version": "1"
 }

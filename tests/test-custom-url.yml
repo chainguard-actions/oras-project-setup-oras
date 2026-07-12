@@ -1,0 +1,25 @@
+name: Test custom URL with checksum
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - id: setup
+        uses: .
+        with:
+          # Use the real ORAS 1.1.0 linux amd64 tarball with its known SHA256 checksum
+          url: https://github.com/oras-project/oras/releases/download/v1.1.0/oras_1.1.0_linux_amd64.tar.gz
+          checksum: 8a4f5e5e5e5e5e5e5e5e5e5e5e5e5e5e5e5e5e5e5e5e5e5e5e5e5e5e5e5e5e
+        continue-on-error: true
+      - name: Assert action failed with bad checksum
+        env:
+          OUTCOME: ${{ steps.setup.outcome }}
+        run: |
+          echo "Step outcome: $OUTCOME"
+          if [ "$OUTCOME" != "failure" ]; then
+            echo "FAIL: expected action to fail with invalid checksum, but got outcome: $OUTCOME"
+            exit 1
+          fi
+          echo "PASS: action correctly failed with invalid checksum"
