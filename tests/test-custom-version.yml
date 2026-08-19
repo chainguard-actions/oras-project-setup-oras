@@ -1,4 +1,4 @@
-name: Test custom version input
+name: Test custom version installation
 on:
   workflow_dispatch:
 jobs:
@@ -10,20 +10,21 @@ jobs:
         uses: .
         with:
           version: "1.1.0"
-      - name: Assert oras is installed
+      - name: Assert oras is installed and accessible
         run: |
-          echo "Checking oras binary..."
+          echo "Checking oras is in PATH..."
           if ! command -v oras &>/dev/null; then
-            echo "FAIL: oras binary not found in PATH"
+            echo "FAIL: oras command not found in PATH"
             exit 1
           fi
-          echo "PASS: oras is available"
+          echo "PASS: oras found at $(command -v oras)"
       - name: Assert oras version is 1.1.0
         run: |
-          VERSION=$(oras version 2>&1 | head -1)
-          echo "actual version output: $VERSION"
-          if ! echo "$VERSION" | grep -q "1.1.0"; then
+          VERSION_OUTPUT=$(oras version 2>&1 || true)
+          echo "oras version output: $VERSION_OUTPUT"
+          if echo "$VERSION_OUTPUT" | grep -q "1.1.0"; then
+            echo "PASS: oras version 1.1.0 confirmed"
+          else
             echo "FAIL: expected version 1.1.0 in output"
             exit 1
           fi
-          echo "PASS"

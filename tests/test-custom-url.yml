@@ -1,0 +1,31 @@
+name: Test custom URL with checksum
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - id: action
+        uses: .
+        with:
+          # Use the official ORAS 1.2.0 linux/amd64 tarball with its real SHA256
+          url: https://github.com/oras-project/oras/releases/download/v1.2.0/oras_1.2.0_linux_amd64.tar.gz
+          checksum: 5b3f1cbb86d869eee68120b9b45b9be983f3738442f87ee5f06b00edd0bab336
+      - name: Assert oras is installed from custom URL
+        run: |
+          echo "Checking oras binary..."
+          if ! command -v oras &>/dev/null; then
+            echo "FAIL: oras binary not found in PATH"
+            exit 1
+          fi
+          echo "PASS: oras found at $(command -v oras)"
+      - name: Assert version from custom URL
+        run: |
+          VERSION_OUTPUT=$(oras version)
+          echo "oras version output: $VERSION_OUTPUT"
+          if ! echo "$VERSION_OUTPUT" | grep -q "1.2.0"; then
+            echo "FAIL: expected version 1.2.0 but got: $VERSION_OUTPUT"
+            exit 1
+          fi
+          echo "PASS: correct version 1.2.0 from custom URL installed"
