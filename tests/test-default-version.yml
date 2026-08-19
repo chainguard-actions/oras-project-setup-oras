@@ -1,0 +1,27 @@
+name: Test setup-oras default version
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - id: setup
+        uses: .
+      - name: Assert oras is installed
+        run: |
+          which oras
+          if [ $? -ne 0 ]; then
+            echo "FAIL: oras binary not found in PATH"
+            exit 1
+          fi
+          echo "PASS: oras is installed"
+      - name: Assert oras version is default (1.3.1)
+        run: |
+          VERSION=$(oras version | head -n1 | awk '{print $NF}')
+          echo "actual version: $VERSION"
+          if [ "$VERSION" != "1.3.1" ]; then
+            echo "FAIL: expected version 1.3.1, got $VERSION"
+            exit 1
+          fi
+          echo "PASS: oras version is 1.3.1"
