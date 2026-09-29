@@ -1,0 +1,31 @@
+name: Test custom URL with checksum
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - id: setup-oras
+        uses: .
+        with:
+          # Use a known ORAS release tarball for linux/amd64 with its SHA256
+          url: https://github.com/oras-project/oras/releases/download/v1.1.0/oras_1.1.0_linux_amd64.tar.gz
+          checksum: e09e85323b24ccc8209a1506f142e3d481e6e809018537c6b3db979c891e6ad7
+      - name: Assert oras is installed and on PATH
+        run: |
+          echo "Checking oras binary..."
+          which oras
+          if [ $? -ne 0 ]; then
+            echo "FAIL: oras not found on PATH"
+            exit 1
+          fi
+          echo "PASS: oras found on PATH"
+      - name: Assert oras binary is executable and runs
+        run: |
+          oras version
+          if [ $? -ne 0 ]; then
+            echo "FAIL: oras version command failed"
+            exit 1
+          fi
+          echo "PASS: oras runs successfully"
