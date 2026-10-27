@@ -1,0 +1,29 @@
+name: Test custom url and checksum
+on:
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - id: action
+        uses: .
+        with:
+          url: https://github.com/oras-project/oras/releases/download/v1.2.0/oras_1.2.0_linux_amd64.tar.gz
+          checksum: 5B3F1CBB86D869EEE68120B9B45B9BE983F3738442F87EE5F06B00EDD0BAB336
+      - name: Assert oras from custom url installed
+        run: |
+          set -e
+          P="$(command -v oras)" || { echo "FAIL: oras not on PATH"; exit 1; }
+          echo "oras at: $P"
+          if [ "$(uname -m)" = "x86_64" ]; then
+            OUT="$(oras version)"
+            echo "$OUT"
+            if ! echo "$OUT" | grep -q "1.2.0"; then
+              echo "FAIL: expected version 1.2.0"
+              exit 1
+            fi
+          else
+            echo "non-amd64 host; skipping execution check"
+          fi
+          echo "PASS"
