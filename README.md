@@ -6,12 +6,13 @@ Hardened by [Chainguard](https://www.chainguard.dev) from the upstream action at
 
 ## Versions
 
-| Version | Tag | Upstream commit |
-|---------|-----|-----------------|
-| v1.2.2 | [`v1.2.2`](https://github.com/chainguard-actions/oras-project-setup-oras/tree/v1.2.2) | [`5c0b487`](https://github.com/oras-project/setup-oras/commit/5c0b487ce3fe0ce3ab0d034e63669e426e294e4d) |
-| v2.0.0 | [`v2.0.0`](https://github.com/chainguard-actions/oras-project-setup-oras/tree/v2.0.0) | [`38de303`](https://github.com/oras-project/setup-oras/commit/38de303aac69abb66f3e6255b7198bff35f323e3) |
-| v2.0.1 | [`v2.0.1`](https://github.com/chainguard-actions/oras-project-setup-oras/tree/v2.0.1) | [`1d808f7`](https://github.com/oras-project/setup-oras/commit/1d808f7d7f6995cc68b7bf507bfe5c5446e1dc9d) |
-| v2.0.2 | [`v2.0.2`](https://github.com/chainguard-actions/oras-project-setup-oras/tree/v2.0.2) | [`005458a`](https://github.com/oras-project/setup-oras/commit/005458ad77f1c8facd38a094e4af2e69e5607ff4) |
+| Version | Tag | Upstream commit | Hardening report |
+|---------|-----|-----------------|------------------|
+| v1.2.2 | [`v1.2.2`](https://github.com/chainguard-actions/oras-project-setup-oras/tree/v1.2.2) | [`5c0b487`](https://github.com/oras-project/setup-oras/commit/5c0b487ce3fe0ce3ab0d034e63669e426e294e4d) | [`HARDENING.md`](https://github.com/chainguard-actions/oras-project-setup-oras/blob/v1.2.2/HARDENING.md) |
+| v2.0.0 | [`v2.0.0`](https://github.com/chainguard-actions/oras-project-setup-oras/tree/v2.0.0) | [`38de303`](https://github.com/oras-project/setup-oras/commit/38de303aac69abb66f3e6255b7198bff35f323e3) | [`HARDENING.md`](https://github.com/chainguard-actions/oras-project-setup-oras/blob/v2.0.0/HARDENING.md) |
+| v2.0.1 | [`v2.0.1`](https://github.com/chainguard-actions/oras-project-setup-oras/tree/v2.0.1) | [`1d808f7`](https://github.com/oras-project/setup-oras/commit/1d808f7d7f6995cc68b7bf507bfe5c5446e1dc9d) | [`HARDENING.md`](https://github.com/chainguard-actions/oras-project-setup-oras/blob/v2.0.1/HARDENING.md) |
+| v2.0.2 | [`v2.0.2`](https://github.com/chainguard-actions/oras-project-setup-oras/tree/v2.0.2) | [`005458a`](https://github.com/oras-project/setup-oras/commit/005458ad77f1c8facd38a094e4af2e69e5607ff4) | [`HARDENING.md`](https://github.com/chainguard-actions/oras-project-setup-oras/blob/v2.0.2/HARDENING.md) |
+| v2.0.3 | [`v2.0.3`](https://github.com/chainguard-actions/oras-project-setup-oras/tree/v2.0.3) | [`5e2f248`](https://github.com/oras-project/setup-oras/commit/5e2f2482b30b0cb3e14e67f89a80c88c659a7c63) | [`HARDENING.md`](https://github.com/chainguard-actions/oras-project-setup-oras/blob/v2.0.3/HARDENING.md) |
 
 ## Privacy
 
